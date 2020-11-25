@@ -1,0 +1,26 @@
+{
+	"env": {
+		"API_ID": {
+			"description": "int: Your tg api id from my.telegram.org",
+			"required": true
+		},
+		"API_HASH": {
+			"description": "str: Your tg api hash from my.telegram.org",
+			"required": true
+		},
+		"OWNER_ID": {
+			"description": "int: Your ID probably.",
+			"required": true
+		},
+		"PREFIX": {
+			"description": "list/str: command prefix of ur choice.",
+			"required": true,
+			"value": "[\"/\", \"!\", \"?\"]"
+		},
+		"DEBUG": {
+			"description": "bool: For debugging purposes.",
+			"required": true,
+			"value": "False"
+		}
+	}
+}

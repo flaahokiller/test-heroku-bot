@@ -28,7 +28,7 @@ if sys.version_info[0] < 3 or sys.version_info[1] < 7:
 API_ID = Config.API_ID
 API_HASH = Config.API_HASH
 pfx = Config.PREFIX
-owner = Config.OWNER
+owner = Config.OWNER_ID
 
 
 class BotName(Client):
