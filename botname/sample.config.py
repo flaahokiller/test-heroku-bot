@@ -4,7 +4,7 @@
 import os
 
 class Config:
-    if "worker.%d" not in os.environ.get('DYNO', 0):
+    if "worker.%d" not in os.environ.get('DYNO', "NotTodayMate"):
         API_ID = 0  # int: Your tg api id from (my.telegram.org)
         API_HASH = ""  # str: Your tg api hash from (my.telegram.org)
         PREFIX = ["/", "!", "?"]  # list/str: command prefix of ur choice
