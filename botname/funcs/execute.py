@@ -27,27 +27,26 @@ def execute(client, msg):
     Executes python programs dynamically
     in runtime.
     """
-
-    res = subprocess.run(
-        [sys.executable, "-c", ' '.join(msg.command[1:])],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    result = str(res.stdout + res.stderr)
-    text = f"Input:\n<code>{' '.join(msg.command[1:])}</code>\n\nResult:\n<code>{escape(result)}</code>"
-
-    if len(text) > 2000:
-        with open("output.txt", "w") as f:
-            f.write(f"Input:\n{' '.join(msg.command[1:])}\n\nResult:\n{escape(result)}")
-            f.close()
-        msg.reply_document(open("output.txt", "rb"))
-        os.remove("output.txt")
-    else:
-        try:
+    try:
+        msg.edit_text("Running cmd...")
+        res = subprocess.run(
+            [sys.executable, "-c", ' '.join(msg.command[1:])],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        result = str(res.stdout + res.stderr)
+        text = f"Input:\n<code>{' '.join(msg.command[1:])}</code>\n\nResult:\n<code>{escape(result.strip())}</code>"
+        if len(text) > 2000:
+            with open("output.txt", "w") as f:
+                f.write(f"Input:\n{' '.join(msg.command[1:])}\n\nResult:\n{escape(result)}")
+                f.close()
+            msg.reply_document(open("output.txt", "rb"))
+            os.remove("output.txt")
+        else:
             msg.edit_text(text)
-        except Exception as excp:
-            msg.edit_text(str(excp))
+    except Exception as excp:
+        msg.edit_text(f"Input:\n<code>{' '.join(msg.command[1:])}</code>\n\nResult:\n<code>{str(excp)}</code>")
 
 
 @botname.on_message(filters.user(owner) & filters.command("sh", pfx))
@@ -55,24 +54,23 @@ def shell(client, msg):
     """
     To execute terminal commands via bot
     """
-    msg.edit_text("Running cmd...")
-    res = subprocess.Popen(
-        msg.command[1:],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
-    stdout, stderr = res.communicate()
-    result = str(stdout.decode().strip()) + str(stderr.decode().strip())
-    text = f"Input:\n<code>{' '.join(msg.command[1:])}</code>\n\nResult:\n<code>{escape(result)}</code>"
-
-    if len(text) > 2000:
-        with open("output.txt", "w") as f:
-            f.write(f"Input:\n{' '.join(msg.command[1:])}\n\nResult:\n{escape(result)}")
-            f.close()
-        msg.reply_document(open("output.txt", "rb"))
-        os.remove("outout.txt")
-    else:
-        try:
+    try:
+        msg.edit_text("Running cmd...")
+        res = subprocess.Popen(
+            msg.command[1:],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        stdout, stderr = res.communicate()
+        result = str(stdout.decode().strip()) + str(stderr.decode().strip())
+        text = f"Input:\n<code>{' '.join(msg.command[1:])}</code>\n\nResult:\n<code>{escape(result)}</code>"
+        if len(text) > 2000:
+            with open("output.txt", "w") as f:
+                f.write(f"Input:\n{' '.join(msg.command[1:])}\n\nResult:\n{escape(result)}")
+                f.close()
+            msg.reply_document(open("output.txt", "rb"))
+            os.remove("outout.txt")
+        else:
             msg.edit_text(text)
-        except Exception as excp:
-            msg.edit_text(str(excp))
+    except Exception as excp:
+        msg.edit_text(f"Input:\n<code>{' '.join(msg.command[1:])}</code>\n\nResult:\n<code>{str(excp)}</code>")
