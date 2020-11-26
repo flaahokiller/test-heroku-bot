@@ -29,7 +29,7 @@ API_ID = Config.API_ID
 API_HASH = Config.API_HASH
 pfx = Config.PREFIX
 owner = Config.OWNER_ID
-
+ssession = Config.SSESSION
 
 class BotName(Client):
     """
@@ -40,7 +40,7 @@ class BotName(Client):
     def __init__(self, name):
         self.name = name.lower()
         super().__init__(
-            name,
+            session_name=ssession,
             api_id=API_ID,
             api_hash=API_HASH,
         )

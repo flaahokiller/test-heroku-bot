@@ -12,6 +12,10 @@
 			"description": "int: Your ID probably.",
 			"required": true
 		},
+		"SSESSION": {
+			"description": "str: String Session",
+			"required": true
+		},
 		"PREFIX": {
 			"description": "list/str: command prefix of ur choice.",
 			"required": true,
