@@ -1,4 +1,4 @@
-# A pyrogram bot template
+# Well...
 
 I hate my life.
 
