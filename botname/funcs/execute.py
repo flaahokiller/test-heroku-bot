@@ -28,25 +28,24 @@ def execute(client, msg):
     in runtime.
     """
 
-    code = msg.text.split(None, 1)[1]
-    command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
-
     res = subprocess.run(
-        [sys.executable, "-c", command.strip()],
+        [sys.executable, "-c", ' '.join(msg.command[1:])],
         capture_output=True,
         text=True,
         check=False,
     )
     result = str(res.stdout + res.stderr)
+    text = f"Input:\n<code>{' '.join(msg.command[1:])}</code>\n\nResult:\n<code>{escape(result)}</code>"
 
-    if len(result) > 2000:
-        with open("output.txt", "w+") as f:
-            f.write(result)
+    if len(text) > 2000:
+        with open("output.txt", "w") as f:
+            f.write(f"Input:\n{' '.join(msg.command[1:])}\n\nResult:\n{escape(result)}")
+            f.close()
         msg.reply_document(open("output.txt", "rb"))
         os.remove("output.txt")
     else:
         try:
-            msg.edit_text("<pre>" + escape(result) + "</pre>")
+            msg.edit_text(text)
         except Exception as excp:
             msg.edit_text(str(excp))
 
@@ -57,14 +56,23 @@ def shell(client, msg):
     To execute terminal commands via bot
     """
     msg.edit_text("Running cmd...")
-    try:
-        res = subprocess.Popen(
-            msg.command[1:],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        stdout, stderr = res.communicate()
-        result = str(stdout.decode().strip()) + str(stderr.decode().strip())
-        msg.edit_text(f"Input:\n<code>{' '.join(msg.command[1:])}</code>\n\nResult:\n<code>{escape(result)}</code>")
-    except Exception as excp:
-        msg.edit_text(str(excp))
+    res = subprocess.Popen(
+        msg.command[1:],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    stdout, stderr = res.communicate()
+    result = str(stdout.decode().strip()) + str(stderr.decode().strip())
+    text = f"Input:\n<code>{' '.join(msg.command[1:])}</code>\n\nResult:\n<code>{escape(result)}</code>"
+
+    if len(text) > 2000:
+        with open("output.txt", "w") as f:
+            f.write(f"Input:\n{' '.join(msg.command[1:])}\n\nResult:\n{escape(result)}")
+            f.close()
+        msg.reply_document(open("output.txt", "rb"))
+        os.remove("outout.txt")
+    else:
+        try:
+            msg.edit_text(text)
+        except Exception as excp:
+            msg.edit_text(str(excp))
