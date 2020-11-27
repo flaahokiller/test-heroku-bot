@@ -5,11 +5,6 @@ import logging, os, sys
 from pyrogram import Client
 
 
-# Check python version
-if sys.version_info[0] < 3 or sys.version_info[1] < 7:
-    LOG.info("You must have python version 3.7 or more! shutting down...")
-    sys.exit(1)
-
 # Heroku Checker
 if "worker.%d" not in os.environ.get('DYNO', "NotTodayMate"):
     from botname.config import Config
@@ -42,6 +37,11 @@ else:
     )
 
 LOG = logging.getLogger(__name__)
+
+# Check python version
+if sys.version_info[0] < 3 or sys.version_info[1] < 7:
+    LOG.info("You must have python version 3.7 or more! shutting down...")
+    sys.exit(1)
 
 
 class BotName(Client):
