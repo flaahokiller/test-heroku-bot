@@ -1,4 +1,5 @@
 {
+	"stack": "container",
 	"env": {
 		"API_ID": {
 			"description": "int: Your tg api id from my.telegram.org",
