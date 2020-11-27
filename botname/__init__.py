@@ -24,12 +24,19 @@ LOG = logging.getLogger(__name__)
 if sys.version_info[0] < 3 or sys.version_info[1] < 7:
     LOG.info("You must have python version 3.7 or more! shutting down...")
     sys.exit(1)
+if "worker.%d" not in os.environ.get('DYNO', "NotTodayMate"):
+    API_ID = Config.API_ID
+    API_HASH = Config.API_HASH
+    pfx = Config.PREFIX
+    owner = Config.OWNER_ID
+    ssession = Config.SSESSION
 
-API_ID = Config.API_ID
-API_HASH = Config.API_HASH
-pfx = Config.PREFIX
-owner = Config.OWNER_ID
-ssession = Config.SSESSION
+else:
+    API_ID = Heroku_Config.API_ID
+    API_HASH = Heroku_Config.API_HASH
+    pfx = Heroku_Config.PREFIX
+    owner = Heroku_Config.OWNER_ID
+    ssession = Heroku_Config.SSESSION
 
 class BotName(Client):
     """
