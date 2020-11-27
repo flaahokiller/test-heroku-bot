@@ -15,12 +15,12 @@ if not os.environ.get('DYNO'):
     DEBUG = Config.DEBUG
 
 else:
-    API_ID = os.environ.get('API_ID')
-    API_HASH = os.environ.get('API_HASH')
-    pfx = os.environ.get('PREFIX')
-    owner = os.environ.get('OWNER_ID')
-    ssession = os.environ.get('SSESSION')
-    DEBUG = os.environ.get('DEBUG')
+    API_ID = int(os.environ.get('API_ID'))
+    API_HASH = str(os.environ.get('API_HASH'))
+    pfx = list(os.environ.get('PREFIX'))
+    owner = int(os.environ.get('OWNER_ID'))
+    ssession = str(os.environ.get('SSESSION'))
+    DEBUG = bool(os.environ.get('DEBUG'))
 
 # set logging
 if DEBUG is True:
