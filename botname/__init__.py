@@ -4,9 +4,9 @@
 import logging, os, sys
 from pyrogram import Client
 
-
+print(os.environ.get('DYNO', "NotTodayMate"))
 # Heroku Checker
-if "worker.%d" not in os.environ.get('DYNO', "NotTodayMate"):
+if "web.%d" not in os.environ.get('DYNO', "NotTodayMate"):
     from botname.config import Config
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
