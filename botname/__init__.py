@@ -4,7 +4,6 @@
 import logging, os, sys
 from pyrogram import Client
 
-print(os.environ.get('DYNO', "NotTodayMate"))
 # Heroku Checker
 if not os.environ.get('DYNO'):
     from botname.config import Config
