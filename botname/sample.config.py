@@ -8,11 +8,3 @@ class Config:
         DEBUG = False  # bool: For debugging purposes
         OWNER_ID = 0  # int: Your ID probably.
         SSESSION = "" # str: Session file name.
-
-class Heroku_Config:
-        API_ID = os.environ.get('API_ID')
-        API_HASH = os.environ.get('API_HASH')
-        OWNER_ID = os.environ.get('OWNER_ID')
-        PREFIX = os.environ.get('PREFIX')
-        DEBUG = os.environ.get('DEBUG')
-        SSESSION = os.environ.get('SSESSION')

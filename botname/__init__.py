@@ -6,7 +6,7 @@ from pyrogram import Client
 
 print(os.environ.get('DYNO', "NotTodayMate"))
 # Heroku Checker
-if "web.%d" not in os.environ.get('DYNO', "NotTodayMate"):
+if not os.environ.get('DYNO'):
     from botname.config import Config
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
